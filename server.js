@@ -1,19 +1,30 @@
-const express = require('express')
-const app = express()
+const express = require('express');
 
-// เรียกใช้
-const { readdirSync } = require('fs')
+const morgan = require('morgan');
+const cors = require('cors');
+const bodyParse = require('body-parser')
+
+const { readdirSync } = require('fs');
+
+const app = express();
+
+// use Morgan & Cors
+app.use(morgan('dev'));
+app.use(cors());
+app.use(bodyParse.json({ limit: '10mb' }))
+
+// Routes
+readdirSync('./Routes').map((file) => {
+  const route = require('./Routes/' + file);
+  app.use('/api', route);
+});
 
 // Routes Test
 app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
-// Routes
-readdirSync('./Routes').map((r) => app.use('/api', require('./Routes/' + r)))
-
-const  port = process.env.PORT || 8080
-
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Server running at http://localhost:${port}`);
+});
