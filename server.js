@@ -1,12 +1,18 @@
 const express = require('express');
 
+// Environment Variables
 const morgan = require('morgan');
 const cors = require('cors');
 const bodyParse = require('body-parser')
 
+const connectDB = require('./Config/db');
+
 const { readdirSync } = require('fs');
 
 const app = express();
+
+// Connect to DB
+connectDB();
 
 // use Morgan & Cors
 app.use(morgan('dev'));

@@ -14,9 +14,9 @@ router.get('/products/:id', read)
 router.post('/products', create)
 
 // PUT /api/products
-router.put('/products', update)
+router.put('/products/:id', update);
 
 // // DELETE /api/products
-router.delete('/products', remove)
+router.delete('/products/:id', remove);
 
 module.exports = router
