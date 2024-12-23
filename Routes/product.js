@@ -1,27 +1,22 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/products', (req, res) => {
-    res.send('Product 555')
-})
+// Controllers
+const { read, list, create, update, remove } = require('../Controllers/product.controllers')
 
-router.get('/products/:id', (req, res) => {
-    res.send('Product product')
-})
+// GET /api/products
+router.get('/products', list)
 
-router.post('/products', (req, res) => {
-    res.send('Product post')
-})
+// GET /api/products/:id
+router.get('/products/:id', read)
 
-router.put('/products', (req, res) => {
-    res.send('Product put')
-})
+// POST /api/products
+router.post('/products', create)
 
-router.delete('/products', (req, res) => {
-    res.json({ 
-        id : 1 ,
-        name: 'lut'
-    })
-})
+// PUT /api/products
+router.put('/products', update)
+
+// // DELETE /api/products
+router.delete('/products', remove)
 
 module.exports = router
